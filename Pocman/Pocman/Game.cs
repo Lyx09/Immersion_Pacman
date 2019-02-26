@@ -10,15 +10,19 @@ namespace Pocman
         private Player player;
         private List<Ghosts> Enemies;
         private bool gameIsRunning;
+        private uint timer;
         
-        public Game(string mapFile)
+        // Coustructeur de la classe Game
+        public Game(string mapFile, uint timer)
         {
+            this.timer = timer;
             gameIsRunning = true;
             map = new Map(mapFile);
             player = new Player(1, 1);
             Enemies = new List<Ghosts>();
         }
 
+        // Lance le jeu
         public void Launch()
         {
             map.PrintMap();
@@ -29,14 +33,27 @@ namespace Pocman
                 // Update
                 Update();
                 // Print
+                Console.SetCursorPosition(0, (int)map.GetHeight());
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, (int)map.GetHeight());
+                Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
                 
-                System.Threading.Thread.Sleep(50); 
+                System.Threading.Thread.Sleep(150); 
             }
             Console.WriteLine("Game over");
         }
 
+        // Met a jour les informations du jeu
         public void Update()
         {
+            if (timer == 0)
+            {
+                gameIsRunning = false;
+                return;
+            }
+
+            timer--;
+            
             int delta_x = 0;
             int delta_y = 0;
             switch (player.GetDir())
@@ -64,7 +81,11 @@ namespace Pocman
                 new_pos.y > 0 && new_pos.y < map.GetHeight() &&
                 map.GetCellType(new_pos.x, new_pos.y) != Map.CellType.Wall)
             {
-                
+                if (map.GetCellType(new_pos.x, new_pos.y) == Map.CellType.Pacgum)
+                {
+                    player.IncreaseScore(1);
+                    map.SetCellType(new_pos.x, new_pos.y, Map.CellType.Empty);
+                }
                 Console.SetCursorPosition(old_pos.x, old_pos.y);
                 Console.Write(' ');
                 player.SetPos(new_pos);

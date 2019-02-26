@@ -12,22 +12,24 @@ namespace Pocman
             Pacgum,
             Empty,
         }
+
         private CellType[,] map;
         private uint height;
         private uint width;
         private uint pacgum;
 
+        // Constructeur de la classe Map, initialises ses attributs
         public Map(string mapFile)
         {
             pacgum = 0;
             using (StreamReader sr = new StreamReader(mapFile))
             {
-                if (! uint.TryParse(sr.ReadLine(),out height))
+                if (!uint.TryParse(sr.ReadLine(), out height))
                     throw new Exception("Error: Could not parse height");
-                if (! uint.TryParse(sr.ReadLine(),out width))
+                if (!uint.TryParse(sr.ReadLine(), out width))
                     throw new Exception("Error: Could not parse width");
 
-                map = new CellType[height,width] ;
+                map = new CellType[height, width];
                 for (int i = 0; i < height; i++)
                 {
                     string line = sr.ReadLine();
@@ -53,6 +55,7 @@ namespace Pocman
             }
         }
 
+        // Affiche la map
         public void PrintMap()
         {
             Console.Clear();
@@ -60,15 +63,15 @@ namespace Pocman
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    switch (map[i,j])
+                    switch (map[i, j])
                     {
                         case CellType.Wall:
                             Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.Write('X');
+                            Console.Write('█');
                             break;
                         case CellType.Pacgum:
                             Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write('o');
+                            Console.Write('·');
                             break;
                         case CellType.Empty:
                             Console.Write(' ');
@@ -78,26 +81,53 @@ namespace Pocman
                             break;
                     }
                 }
+
                 Console.WriteLine();
             }
+
             Console.ResetColor();
         }
 
+        // Retourne la hauteur de la map
         public uint GetHeight()
         {
             return height;
         }
 
+        // Retourne la largeur de la map
         public uint GetWidth()
         {
             return width;
         }
 
+        // Retourne le nombre de pacgum
+        public uint GetPacgum()
+        {
+            return pacgum;
+        }
+
+        // Reduit le nombre de pacbum de 1 et retourne le nouveau compte
+        public uint DecreasePacgun()
+        {
+            if (pacgum <= 0)
+                return pacgum;
+            return --pacgum;
+        }
+
+        // Retourne le type de la cellule en position y, x
         public CellType GetCellType(int x, int y)
         {
-            if (x > height || y > height)
+            if (x > width || y > height)
                 throw new Exception("Requested cell is out of bounds");
-            return map[x, y];
+            return map[y, x];
+        }
+        
+        // Definit le type de la cellule en position y, x
+        public void SetCellType(int x, int y, CellType t)
+        {
+            if (x > width || y > height)
+                throw new Exception("Requested cell is out of bounds");
+            map[y, x] = t;
         }
     }
 }
