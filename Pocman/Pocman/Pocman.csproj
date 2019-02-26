@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game.cs" />
     <Compile Include="Ghosts.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Pacman.cs" />
