@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace Pocman
+namespace Pacman
 {
     public struct Coords
     {

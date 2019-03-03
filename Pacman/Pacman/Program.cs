@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pocman
+namespace Pacman
 {
     internal class Program
     {

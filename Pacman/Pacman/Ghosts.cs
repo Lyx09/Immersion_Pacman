@@ -1,4 +1,4 @@
-namespace Pocman
+namespace Pacman
 {
     public class Ghosts
     {

@@ -1,22 +1,10 @@
 using System;
 using System.Data;
 
-namespace Pocman
+namespace Pacman
 {
-    public class Player
+    public class Player : Character
     {
-        public enum Direction
-        {
-            Up,
-            Left,
-            Down,
-            Right,
-            Quit
-        };
-
-        private char icon;
-        private Coords pos;
-        private Direction dir;
         private int score;
 
         // Constructeur de la classe Joueur
@@ -26,16 +14,6 @@ namespace Pocman
             this.icon = icon;
             pos = new Coords(x, y);
             this.dir = dir;
-        }
-
-        // Affiche le joueur a la bonne position sur l'ecran
-        public void PrintPlayer()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition(pos.x, pos.y);
-            Console.Write(icon);
-            Console.SetCursorPosition(0, 0);
-            Console.ResetColor();
         }
 
         // Renvoie le score actuel du joueur
@@ -50,23 +28,6 @@ namespace Pocman
             score += s;
         }
         
-        // Retourne la direction dans laquelle pointe le joueur
-        public Direction GetDir()
-        {
-            return dir;
-        }
-
-        // Retourne la position du joueur
-        public Coords GetPos()
-        {
-            return pos;
-        }
-
-        // Definit la position du joueur
-        public void SetPos(Coords c)
-        {
-            pos = c;
-        }
 
         // Recupere l'action du joueur
         public Direction GetInput()
@@ -78,18 +39,22 @@ namespace Pocman
             switch (key.Key)
             {  
                 case ConsoleKey.W:
+                case ConsoleKey.UpArrow:
                     dir = Direction.Up;
                     icon = 'ᗢ';
                     break;
                 case ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
                     dir = Direction.Left;
                     icon = 'ᗤ';
                     break;
                 case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
                     dir = Direction.Down;
                     icon = 'ᗣ';
                     break;
                 case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
                     dir = Direction.Right;
                     icon = 'ᗧ';
                     break;

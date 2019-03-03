@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Media;
 
-namespace Pocman
+namespace Pacman
 {
     public class Game
     {
