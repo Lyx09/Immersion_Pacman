@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83049524-0270-4A34-A36A-5EBE9E63496A}</ProjectGuid>
+    <ProjectGuid>{E137A549-9DA4-46F6-A8B5-13F0EC2FFE7F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pacman</RootNamespace>
-    <AssemblyName>Pacman</AssemblyName>
+    <RootNamespace>TinyPacman</RootNamespace>
+    <AssemblyName>TinyPacman</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
