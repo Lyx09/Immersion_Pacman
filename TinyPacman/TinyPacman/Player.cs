@@ -41,22 +41,22 @@ namespace Pacman
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
                     dir = Direction.Up;
-                    icon = 'ᗢ';
+                    //icon = 'ᗢ';
                     break;
                 case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
                     dir = Direction.Left;
-                    icon = 'ᗤ';
+                    //icon = 'ᗤ';
                     break;
                 case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
                     dir = Direction.Down;
-                    icon = 'ᗣ';
+                    //icon = 'ᗣ';
                     break;
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
                     dir = Direction.Right;
-                    icon = 'ᗧ';
+                    //icon = 'ᗧ';
                     break;
                 case ConsoleKey.Escape:
                     dir = Direction.Quit;

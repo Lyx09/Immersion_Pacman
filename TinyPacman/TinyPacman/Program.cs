@@ -9,7 +9,8 @@ namespace Pacman
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("╔══════════════════════╗\n║");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(" Welcome to Pᗣᗧ•••MᗣN ");
+            //Console.Write(" Welcome to Pᗣᗧ•••MᗣN ");
+            Console.Write(" Welcome to PAC•••MAN ");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("║\n╚══════════════════════╝");
             Console.ResetColor();
