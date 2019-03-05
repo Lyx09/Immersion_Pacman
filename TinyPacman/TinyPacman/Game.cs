@@ -74,8 +74,8 @@ namespace Pacman
                     switch (map[i, j])
                     {
                         case CellType.Wall:
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.Write('█');
+                            Console.BackgroundColor = ConsoleColor.Blue;
+                            Console.Write(' ');
                             break;
                         case CellType.Pacgum:
                             Console.ForegroundColor = ConsoleColor.White;
@@ -88,6 +88,7 @@ namespace Pacman
                             Console.Write('?');
                             break;
                     }
+                    Console.ResetColor();
                 }
 
                 Console.WriteLine();
