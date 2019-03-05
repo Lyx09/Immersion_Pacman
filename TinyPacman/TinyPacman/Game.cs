@@ -78,7 +78,7 @@ namespace Pacman
                             Console.Write(' ');
                             break;
                         case CellType.Pacgum:
-                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             Console.Write('·');
                             break;
                         case CellType.Empty:
