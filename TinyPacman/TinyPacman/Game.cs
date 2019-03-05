@@ -25,11 +25,12 @@ namespace Pacman
         // Constructeur de la classe Game, initialises ses attributs
         public Game(string mapFile, uint timer)
         {
-            this.timer = timer;
             gameIsRunning = true;
-            player = new Player(new Coords(1, 1));
             ghosts = new List<Ghost>();
             pacgum = 0;
+            player = new Player(new Coords(1, 1));
+            this.timer = timer;
+            
             using (StreamReader sr = new StreamReader(mapFile))
             {
                 if (!uint.TryParse(sr.ReadLine(), out height))
@@ -45,6 +46,10 @@ namespace Pacman
                     {
                         switch (line[j])
                         {
+                            case 'G':
+                                map[i, j] = CellType.Empty;
+                                ghosts.Add(new Ghost(new Coords(j,i), map));
+                                break;
                             case '.':
                                 map[i, j] = CellType.Pacgum;
                                 pacgum += 1;
