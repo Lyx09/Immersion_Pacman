@@ -97,49 +97,47 @@ namespace Pacman
             Console.ResetColor();
         }
 
-        // Retourne la hauteur de la map
-        public uint GetHeight()
-        {
-            return height;
-        }
-
-        // Retourne la largeur de la map
-        public uint GetWidth()
-        {
-            return width;
-        }
-
         // Retourne le nombre de pacgum
         public uint GetPacgum()
         {
             return pacgum;
         }
 
-        // Reduit le nombre de pacbum de 1 et retourne le nouveau compte
-        public uint DecreasePacgun()
+        // Reduit le nombre de pacgum de 1 et retourne le nouveau compte
+        public void EatPacgum(Coords c)
         {
-            if (pacgum <= 0)
-                return pacgum;
-            return --pacgum;
+            if (GetCellType(c) != CellType.Pacgum) // For safety
+                return;
+            player.IncreaseScore(1);
+            SetCellType(c, CellType.Empty);
+            if (pacgum > 0) // For safety
+                --pacgum;
         }
 
         // Retourne le type de la cellule en position y, x
-        public CellType GetCellType(int x, int y)
+        public CellType GetCellType(Coords c)
         {
-            if (x > width || y > height)
+            if (c.x > width || c.y > height)
                 throw new Exception("Requested cell is out of bounds");
-            return map[y, x];
+            return map[c.y, c.x];
         }
         
         // Definit le type de la cellule en position y, x
-        public void SetCellType(int x, int y, CellType t)
+        public void SetCellType(Coords c, CellType t)
         {
-            if (x > width || y > height)
+            if (c.x > width || c.y > height)
                 throw new Exception("Requested cell is out of bounds");
-            map[y, x] = t;
+            map[c.y, c.x] = t;
         }
-        
-        // Coustructeur de la classe Game
+
+        public void PrintScore()
+        {
+                Console.SetCursorPosition(0, (int)map.GetLength(0));
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, map.GetLength(0));
+                Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
+        }
+
         // Lance le jeu
         public void Launch()
         {
@@ -151,10 +149,8 @@ namespace Pacman
                 // Update
                 Update();
                 // Print
-                Console.SetCursorPosition(0, (int)GetHeight());
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, (int)GetHeight());
-                Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
+                player.PrintPlayer();
+                PrintScore();
                 
                 System.Threading.Thread.Sleep(150); 
             }
@@ -170,19 +166,26 @@ namespace Pacman
                 return;
             }
 
-            timer--;
             if (GetPacgum() == 0)
             {
                 gameIsRunning = false;
+                return;
             }
-            
+
+            MovePlayer();
+            timer--;
+
+        }
+        
+        public void MovePlayer()
+        {
             int delta_x = 0;
             int delta_y = 0;
             switch (player.GetDir())
             {
                case Player.Direction.Quit:
-                gameIsRunning = false;
-                return;
+                   gameIsRunning = false;
+                   return;
                case Player.Direction.Left:
                    delta_x = -1;
                    break;
@@ -198,20 +201,20 @@ namespace Pacman
             }
 
             Coords old_pos = player.GetPos();
+            int height = map.GetLength(0);
+            int width = map.GetLength(1);
             Coords new_pos = old_pos + new Coords(delta_x, delta_y);
-            if (new_pos.x > 0 && new_pos.x < GetWidth() &&
-                new_pos.y > 0 && new_pos.y < GetHeight() &&
-                GetCellType(new_pos.x, new_pos.y) != CellType.Wall)
+            
+            if (new_pos.x > 0 && new_pos.x < width && new_pos.y > 0 && new_pos.y < height &&
+                GetCellType(new_pos) != CellType.Wall)
             {
-                if (GetCellType(new_pos.x, new_pos.y) == CellType.Pacgum)
-                {
-                    player.IncreaseScore(1);
-                    SetCellType(new_pos.x, new_pos.y, CellType.Empty);
-                }
+                if (GetCellType(new_pos) == CellType.Pacgum)
+                    EatPacgum(new_pos);
+                player.SetPos(new_pos);
+                
+                // We clear the old position
                 Console.SetCursorPosition(old_pos.x, old_pos.y);
                 Console.Write(' ');
-                player.SetPos(new_pos);
-                player.PrintPlayer();
             }
         }
     }

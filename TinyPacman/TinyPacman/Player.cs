@@ -21,13 +21,13 @@ namespace Pacman
         {
             return score;
         }
-        
+
         // Augmente le score actuel du joueur de s
         public void IncreaseScore(int s)
         {
             score += s;
         }
-        
+
 
         // Recupere l'action du joueur
         public Direction GetInput()
