@@ -170,7 +170,6 @@ namespace Pacman
             }
 
             timer--;
-            Update();
             if (GetPacgum() == 0)
             {
                 gameIsRunning = false;
