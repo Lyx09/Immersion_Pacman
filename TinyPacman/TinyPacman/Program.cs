@@ -17,7 +17,7 @@ namespace Pacman
             Console.WriteLine("\n Press Enter to begin.");
             Console.ReadLine();
             
-            Game game = new Game("map.txt", 500);
+            Game game = new Game("map2.txt", 500);
             game.Launch();
         }
     }

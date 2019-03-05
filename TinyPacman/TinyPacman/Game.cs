@@ -132,7 +132,7 @@ namespace Pacman
 
         public void PrintScore()
         {
-                Console.SetCursorPosition(0, (int)map.GetLength(0));
+                Console.SetCursorPosition(0,  map.GetLength(0));
                 Console.Write(new string(' ', Console.WindowWidth));
                 Console.SetCursorPosition(0, map.GetLength(0));
                 Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
