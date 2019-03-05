@@ -13,18 +13,18 @@ namespace Pacman
             Quit
         };
 
-        protected char icon;
         protected ConsoleColor color;
         protected Coords pos;
         protected Direction dir;
+        protected char icon;
 
         // Constructeur de Character
         public Character(Coords pos, Direction dir, char icon, ConsoleColor color)
         {
             this.color = color;
+            this.dir = dir;
             this.icon = icon;
             this.pos = pos;
-            this.dir = dir;
         }
 
         // Affiche le joueur a la bonne position sur l'ecran

@@ -144,16 +144,18 @@ namespace Pacman
                 Update();
                 // Print
                 player.Print();
+                foreach (Ghost ghost in ghosts)
+                    ghost.Print();
                 PrintScore();
                 
                 System.Threading.Thread.Sleep(150); 
             }
             Console.Clear();
             Console.WriteLine("Game over");
-            if (timer == 0)
-                Console.WriteLine("You lost!");
             if (pacgum == 0)
                 Console.WriteLine("You win!");
+            else
+                Console.WriteLine("You lost!"); // timer == 0 or eaten by a ghost
         }
 
         // Met a jour les informations du jeu
@@ -166,6 +168,16 @@ namespace Pacman
             }
 
             MovePlayer();
+            foreach (Ghost ghost in ghosts)
+            {
+                ghost.Move();
+                if (ghost.GetPos() == player.GetPos())
+                {
+                    gameIsRunning = false;
+                    return;
+                }
+            }
+
             timer--;
         }
         
