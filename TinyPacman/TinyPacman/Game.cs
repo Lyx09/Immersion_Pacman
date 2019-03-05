@@ -196,13 +196,22 @@ namespace Pacman
             int height = map.GetLength(0);
             int width = map.GetLength(1);
             Coords new_pos = old_pos + new Coords(delta_x, delta_y);
+
+            if (new_pos.y >= height)
+                new_pos.y = 0;
+            if (new_pos.x >= width)
+                new_pos.x = 0;
+            if (new_pos.y < 0)
+                new_pos.y = height - 1;
+            if (new_pos.x < 0)
+                new_pos.x = width - 1;
             
-            if (new_pos.x > 0 && new_pos.x < width && new_pos.y > 0 && new_pos.y < height &&
-                GetCellType(new_pos) != CellType.Wall)
+            
+            if (GetCellType(new_pos) != CellType.Wall)
             {
+                player.SetPos(new_pos);
                 if (GetCellType(new_pos) == CellType.Pacgum)
                     EatPacgum(new_pos);
-                player.SetPos(new_pos);
                 
                 // We clear the old position
                 Console.SetCursorPosition(old_pos.x, old_pos.y);
