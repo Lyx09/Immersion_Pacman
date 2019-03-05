@@ -7,13 +7,11 @@ namespace Pacman
         public static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("╔══════════════════════╗");
-            Console.Write("║");
+            Console.WriteLine("╔══════════════════════╗\n║");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" Welcome to Pᗣᗧ•••MᗣN ");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("║"); 
-            Console.WriteLine("╚══════════════════════╝");
+            Console.WriteLine("║\n╚══════════════════════╝");
             Console.ResetColor();
             Console.WriteLine("\n Press Enter to begin.");
             Console.ReadLine();
