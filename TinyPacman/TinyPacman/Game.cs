@@ -14,7 +14,7 @@ namespace Pacman
         }
 
         private CellType[,] map;
-        private List<Ghosts> ghosts;
+        private List<Ghost> ghosts;
         private bool gameIsRunning;
         private uint height;
         private uint pacgum;
@@ -27,8 +27,8 @@ namespace Pacman
         {
             this.timer = timer;
             gameIsRunning = true;
-            player = new Player(1, 1);
-            ghosts = new List<Ghosts>();
+            player = new Player(new Coords(1, 1));
+            ghosts = new List<Ghost>();
             pacgum = 0;
             using (StreamReader sr = new StreamReader(mapFile))
             {
@@ -45,7 +45,7 @@ namespace Pacman
                     {
                         switch (line[j])
                         {
-                            case 'O':
+                            case '.':
                                 map[i, j] = CellType.Pacgum;
                                 pacgum += 1;
                                 break;
@@ -97,12 +97,6 @@ namespace Pacman
             Console.ResetColor();
         }
 
-        // Retourne le nombre de pacgum
-        public uint GetPacgum()
-        {
-            return pacgum;
-        }
-
         // Reduit le nombre de pacgum de 1 et retourne le nouveau compte
         public void EatPacgum(Coords c)
         {
@@ -149,24 +143,23 @@ namespace Pacman
                 // Update
                 Update();
                 // Print
-                player.PrintPlayer();
+                player.Print();
                 PrintScore();
                 
                 System.Threading.Thread.Sleep(150); 
             }
+            Console.Clear();
             Console.WriteLine("Game over");
+            if (timer == 0)
+                Console.WriteLine("You lost!");
+            if (pacgum == 0)
+                Console.WriteLine("You win!");
         }
 
         // Met a jour les informations du jeu
         public void Update()
         {
-            if (timer == 0)
-            {
-                gameIsRunning = false;
-                return;
-            }
-
-            if (GetPacgum() == 0)
+            if (timer == 0 || pacgum == 0)
             {
                 gameIsRunning = false;
                 return;
@@ -174,7 +167,6 @@ namespace Pacman
 
             MovePlayer();
             timer--;
-
         }
         
         public void MovePlayer()

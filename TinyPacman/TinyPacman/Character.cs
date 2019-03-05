@@ -14,19 +14,27 @@ namespace Pacman
         };
 
         protected char icon;
+        protected ConsoleColor color;
         protected Coords pos;
         protected Direction dir;
-        
-        // Affiche le joueur a la bonne position sur l'ecran
-        public void PrintPlayer()
+
+        // Constructeur de Character
+        public Character(Coords pos, Direction dir, char icon, ConsoleColor color)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition(pos.x, pos.y);
-            Console.Write(icon);
-            Console.SetCursorPosition(0, 0);
-            Console.ResetColor();
+            this.color = color;
+            this.icon = icon;
+            this.pos = pos;
+            this.dir = dir;
         }
 
+        // Affiche le joueur a la bonne position sur l'ecran
+        public void Print()
+        {
+            Console.ForegroundColor = color;
+            Console.SetCursorPosition(pos.x, pos.y);
+            Console.Write(icon);
+            Console.ResetColor();
+        }
         
         // Retourne la direction dans laquelle pointe le joueur
         public Direction GetDir()

@@ -8,12 +8,10 @@ namespace Pacman
         private int score;
 
         // Constructeur de la classe Joueur
-        public Player(int x, int y, Direction dir = Direction.Right, char icon = '●')
+        public Player(Coords pos, Direction dir = Direction.Right, char icon = '●',
+            ConsoleColor color = ConsoleColor.Yellow) : base(pos, dir, icon, color)
         {
             score = 0;
-            this.icon = icon;
-            pos = new Coords(x, y);
-            this.dir = dir;
         }
 
         // Renvoie le score actuel du joueur

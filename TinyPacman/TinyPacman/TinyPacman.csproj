@@ -41,7 +41,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="Coords.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Ghosts.cs" />
+    <Compile Include="Ghost.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
