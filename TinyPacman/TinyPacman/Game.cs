@@ -16,10 +16,10 @@ namespace Pacman
         private CellType[,] map;
         private List<Ghost> ghosts;
         private bool gameIsRunning;
-        private uint height;
+        private int height;
+        private int width;
         private uint pacgum;
         private uint timer;
-        private uint width;
         public Player player;
 
         // Constructeur de la classe Game, initialises ses attributs
@@ -33,9 +33,9 @@ namespace Pacman
             
             using (StreamReader sr = new StreamReader(mapFile))
             {
-                if (!uint.TryParse(sr.ReadLine(), out height))
+                if (!int.TryParse(sr.ReadLine(), out height))
                     throw new Exception("Error: Could not parse height");
-                if (!uint.TryParse(sr.ReadLine(), out width))
+                if (!int.TryParse(sr.ReadLine(), out width))
                     throw new Exception("Error: Could not parse width");
 
                 map = new CellType[height, width];
@@ -48,7 +48,7 @@ namespace Pacman
                         {
                             case 'G':
                                 map[i, j] = CellType.Empty;
-                                ghosts.Add(new Ghost(new Coords(j,i), map));
+                                ghosts.Add(new Ghost(new Coords(j,i), map, player));
                                 break;
                             case '.':
                                 map[i, j] = CellType.Pacgum;
@@ -72,9 +72,9 @@ namespace Pacman
         public void PrintMap()
         {
             Console.Clear();
-            for (int i = 0; i < map.GetLength(0); i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 0; j < width; j++)
                 {
                     switch (map[i, j])
                     {
@@ -131,9 +131,9 @@ namespace Pacman
 
         public void PrintScore()
         {
-                Console.SetCursorPosition(0,  map.GetLength(0));
+                Console.SetCursorPosition(0,  height);
                 Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, map.GetLength(0));
+                Console.SetCursorPosition(0, width);
                 Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
         }
 
@@ -210,8 +210,6 @@ namespace Pacman
             }
 
             Coords old_pos = player.GetPos();
-            int height = map.GetLength(0);
-            int width = map.GetLength(1);
             Coords new_pos = old_pos + new Coords(delta_x, delta_y);
 
             if (new_pos.y >= height)

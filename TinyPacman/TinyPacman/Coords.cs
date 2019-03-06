@@ -1,5 +1,3 @@
-using System.Xml;
-
 namespace Pacman
 {
     public struct Coords
@@ -16,6 +14,11 @@ namespace Pacman
         public static Coords operator +(Coords c1, Coords c2)
         {
             return new Coords(c1.x + c2.x, c1.y + c2.y);
+        }
+        
+        public static Coords operator -(Coords c1, Coords c2)
+        {
+            return new Coords(c1.x - c2.x, c1.y - c2.y);
         }
 
         public static bool operator !=(Coords c1, Coords c2)
