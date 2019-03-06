@@ -1,6 +1,5 @@
 using System;
 
-
 namespace Pacman
 {
     public class Player : Character
@@ -30,39 +29,8 @@ namespace Pacman
         // Recupere l'action du joueur
         public Direction GetInput()
         {
-            if (!Console.KeyAvailable)
-                return dir;
-
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            switch (key.Key)
-            {  
-                case ConsoleKey.W:
-                case ConsoleKey.UpArrow:
-                    dir = Direction.Up;
-                    //icon = 'ᗢ';
-                    break;
-                case ConsoleKey.A:
-                case ConsoleKey.LeftArrow:
-                    dir = Direction.Left;
-                    //icon = 'ᗤ';
-                    break;
-                case ConsoleKey.S:
-                case ConsoleKey.DownArrow:
-                    dir = Direction.Down;
-                    //icon = 'ᗣ';
-                    break;
-                case ConsoleKey.D:
-                case ConsoleKey.RightArrow:
-                    dir = Direction.Right;
-                    //icon = 'ᗧ';
-                    break;
-                case ConsoleKey.Escape:
-                    dir = Direction.Quit;
-                    break;
-                default:
-                    break;
-            }
-            return dir;
+            // FIXME
+            return Direction.Right;
         }
     }
 }

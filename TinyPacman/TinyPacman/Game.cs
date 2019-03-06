@@ -68,51 +68,6 @@ namespace Pacman
             }
         }
 
-        // Affiche la map
-        public void PrintMap()
-        {
-            Console.Clear();
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    switch (map[i, j])
-                    {
-                        case CellType.Wall:
-                            Console.BackgroundColor = ConsoleColor.Blue;
-                            Console.Write(' ');
-                            break;
-                        case CellType.Pacgum:
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.Write('·');
-                            break;
-                        case CellType.Empty:
-                            Console.Write(' ');
-                            break;
-                        default:
-                            Console.Write('?');
-                            break;
-                    }
-                    Console.ResetColor();
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.ResetColor();
-        }
-
-        // Reduit le nombre de pacgum de 1 et retourne le nouveau compte
-        public void EatPacgum(Coords c)
-        {
-            if (GetCellType(c) != CellType.Pacgum) // For safety
-                return;
-            player.IncreaseScore(1);
-            SetCellType(c, CellType.Empty);
-            if (pacgum > 0) // For safety
-                --pacgum;
-        }
-
         // Retourne le type de la cellule en position y, x
         public CellType GetCellType(Coords c)
         {
@@ -129,6 +84,7 @@ namespace Pacman
             map[c.y, c.x] = t;
         }
 
+        // Affiche le score en dessous de la map
         public void PrintScore()
         {
                 Console.SetCursorPosition(0,  height);
@@ -136,56 +92,19 @@ namespace Pacman
                 Console.SetCursorPosition(0, width);
                 Console.Write("Score : " + player.GetScore() + ", Timer : " + timer );
         }
-
-        // Lance le jeu
-        public void Launch()
-        {
-            PrintMap();
-            while (gameIsRunning)
-            {
-                // Input
-                player.GetInput();
-                // Update
-                Update();
-                // Print
-                player.Print();
-                foreach (Ghost ghost in ghosts)
-                    ghost.Print();
-                PrintScore();
-                
-                System.Threading.Thread.Sleep(150); 
-            }
-            Console.Clear();
-            Console.WriteLine("Game over");
-            if (pacgum == 0)
-                Console.WriteLine("You win!");
-            else
-                Console.WriteLine("You lost!"); // timer == 0 or eaten by a ghost
-        }
-
-        // Met a jour les informations du jeu
-        public void Update()
-        {
-            if (timer == 0 || pacgum == 0)
-            {
-                gameIsRunning = false;
-                return;
-            }
-
-            MovePlayer();
-            foreach (Ghost ghost in ghosts)
-            {
-                ghost.Move();
-                if (ghost.GetPos() == player.GetPos())
-                {
-                    gameIsRunning = false;
-                    return;
-                }
-            }
-
-            timer--;
-        }
         
+        // Reduit le nombre de pacgum de 1 et retourne le nouveau compte
+        public void EatPacgum(Coords c)
+        {
+            if (GetCellType(c) != CellType.Pacgum) // For safety
+                return;
+            player.IncreaseScore(1);
+            SetCellType(c, CellType.Empty);
+            if (pacgum > 0) // For safety
+                --pacgum;
+        }
+
+        // Deplace le joueur en fonction de la direction dans laquelle il pointe
         public void MovePlayer()
         {
             int delta_x = 0;
@@ -232,6 +151,24 @@ namespace Pacman
                 Console.SetCursorPosition(old_pos.x, old_pos.y);
                 Console.Write(' ');
             }
+        }
+        
+        // Affiche la map
+        public void PrintMap()
+        {
+            // FIXME
+        }
+        
+        // Lance le jeu
+        public void Launch()
+        {
+            // FIXME
+        }
+        
+        // Met a jour les informations du jeu
+        public void Update()
+        {
+            // FIXME
         }
     }
 }

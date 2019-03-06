@@ -27,15 +27,6 @@ namespace Pacman
             this.pos = pos;
         }
 
-        // Affiche le joueur a la bonne position sur l'ecran
-        public void Print()
-        {
-            Console.ForegroundColor = color;
-            Console.SetCursorPosition(pos.x, pos.y);
-            Console.Write(icon);
-            Console.ResetColor();
-        }
-        
         // Retourne la direction dans laquelle pointe le joueur
         public Direction GetDir()
         {
@@ -52,6 +43,12 @@ namespace Pacman
         public void SetPos(Coords c)
         {
             pos = c;
+        }
+        
+        // Affiche le joueur a la bonne position sur l'ecran
+        public void Print()
+        {
+            // FIXME
         }
     }
 }
